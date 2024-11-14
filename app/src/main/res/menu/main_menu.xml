@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    >
+
+
+
+    <group android:checkableBehavior="single">
+
+        <item
+            android:id="@+id/hogar"
+            android:title="Inicio"
+            android:icon="@drawable/baseline_home_24"
+
+            >
+
+        </item>
+
+
+    </group>
+
+
+    <item
+        android:title="Usuario"
+
+        >
+        <menu>
+            <group android:checkableBehavior="single">
+                <item
+                    android:id="@+id/Usuario"
+                    android:title="Perfil"
+                    android:icon="@drawable/baseline_account_circle_24">
+                </item>
+
+                <item
+                    android:id="@+id/nav_info"
+                    android:title="Estadisticas"
+                    android:icon="@drawable/baseline_info_24"
+                    >
+
+                </item>
+                <item
+                    android:id="@+id/nav_salir"
+                    android:title="Salir"
+                    android:icon="@drawable/baseline_logout_24">
+                </item>
+            </group>
+        </menu>
+    </item>
+
+
+</menu>

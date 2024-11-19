@@ -31,6 +31,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
+import com.google.firebase.auth.FirebaseAuth;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -40,7 +41,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     DrawerLayout drawerLayout;
     NavigationView navigationView;
     Toolbar toolbar;
-
+    FirebaseAuth mAuth;
     RecyclerView recyclerView;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,6 +52,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         navigationView = findViewById(nav_view);
         toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+        mAuth = FirebaseAuth.getInstance();
 
         navigationView.bringToFront();
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
@@ -94,6 +97,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         if(id == R.id.hogar) {
 
         } else if (id == R.id.nav_salir) {
+            mAuth.signOut();
+            finish();
             startActivity(new Intent(MainActivity.this, login.class));
         } else if (id == R.id.Usuario) {
             Toast.makeText(this, "Usuario", LENGTH_SHORT).show();
@@ -132,11 +137,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
 
     }
-    @Override
-    protected void onStart() {
-        super.onStart();
-    }
-
 
 
 }

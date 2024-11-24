@@ -31,6 +31,15 @@
             android:layout_height="match_parent"
             android:background="#DAD6D6">
 
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recyclerViewEventos"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:padding="16dp"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent" />
             <androidx.appcompat.widget.Toolbar
                 android:id="@+id/toolbar"
                 app:menu="@menu/search"

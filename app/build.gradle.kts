@@ -43,9 +43,14 @@ dependencies {
     testImplementation(libs.junit)
     androidTestImplementation(libs.ext.junit)
     androidTestImplementation(libs.espresso.core)
-    implementation ("com.airbnb.android:lottie:4.2.2")
+    implementation ("com.airbnb.android:lottie:6.0.0")
+
+    implementation ("com.squareup.retrofit2:retrofit:2.9.0")
+    implementation ("com.squareup.retrofit2:converter-gson:2.9.0")
+    implementation ("com.squareup.okhttp3:logging-interceptor:4.9.0") // opcional para ver logs de las solicitudes
     //firebase
     // Import the Firebase BoM
+    implementation ("com.firebaseui:firebase-ui-firestore:8.0.2")
     implementation(platform("com.google.firebase:firebase-bom:33.6.0"))
     implementation("com.google.firebase:firebase-analytics")
 

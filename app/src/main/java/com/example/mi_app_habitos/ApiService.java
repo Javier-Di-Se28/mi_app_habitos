@@ -21,11 +21,11 @@ public interface ApiService {
     @POST("eventos")
     Call<Evento> createEvento(@Body Evento evento);
 
-    // Definir la ruta para obtener un libro por ID (GET)
+    // Definir la ruta para obtener un evento por ID (GET)
     @GET("eventos/{id}")
     Call<Evento> getEventoById(@Path("id") int id);
 
-    // Definir la ruta para actualizar un libro (PUT)
+    // Definir la ruta para actualizar un evento (PUT)
     @PUT("eventos/{id}")
     Call<Evento> updateEvento(@Path("id") int id, @Body Evento evento);
 

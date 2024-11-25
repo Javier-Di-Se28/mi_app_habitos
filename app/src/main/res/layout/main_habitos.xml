@@ -47,7 +47,7 @@
             android:textStyle="bold" />
 
         <TextView
-            android:id="@+id/frecuencia"
+            android:id="@+id/textFrecuencia"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/textDescripcion"
@@ -62,7 +62,7 @@
             android:id="@+id/textFechaInicio"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/frecuencia"
+            android:layout_below="@+id/textFrecuencia"
             android:layout_marginRight="10dp"
             android:layout_toRightOf="@id/image"
             android:text="Fecha_inicio"

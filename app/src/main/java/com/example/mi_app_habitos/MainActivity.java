@@ -40,6 +40,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     // API
     private EventoAdapter adapter;
     private List<Evento> eventos;
+    private ApiService apiService;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,9 +49,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         recyclerView = findViewById(R.id.recyclerViewEventos);
         recyclerView = findViewById(R.id.rv);
         recyclerView.setLayoutManager(new GridLayoutManager(this, 1));
+           // Inicializar Retrofit y ApiService
+        apiService = RetrofitClient.getClient().create(ApiService.class);
 
         eventos = new ArrayList<>();
-        adapter = new EventoAdapter(eventos,this);
+        adapter = new EventoAdapter(eventos,this,apiService);
         recyclerView.setAdapter(adapter);
 
         cargarEventos();
@@ -74,6 +77,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     }
 
     private void cargarEventos() {
+
         RetrofitClient.getClient()
                 .create(ApiService.class)
                 .getEventos()
@@ -93,6 +97,37 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                     }
                 });
     }
+    private void eliminarEvento(int position) {
+        if (position < 0 || position >= eventos.size()) {
+            Toast.makeText(MainActivity.this, "Posición inválida", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        Evento evento = eventos.get(position);
+
+        // Llamar al método DELETE de la API
+        apiService.deleteEvento(evento.getId()).enqueue(new retrofit2.Callback<Void>() {
+            @Override
+            public void onResponse(retrofit2.Call<Void> call, retrofit2.Response<Void> response) {
+                if (response.isSuccessful()) {
+                    // Eliminar el evento de la lista local y notificar al adaptador
+                    eventos.remove(position);
+                    adapter.notifyItemRemoved(position);
+                    Toast.makeText(MainActivity.this, "Evento eliminado", Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(MainActivity.this, "Error al eliminar el evento", Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailure(retrofit2.Call<Void> call, Throwable t) {
+                Toast.makeText(MainActivity.this, "Error de conexión", Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+
+
 
     @Override
     public void onBackPressed() {
@@ -146,6 +181,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         });
 
         return super.onCreateOptionsMenu(menu);
+    }
+    @Override
+    protected void onResume() {
+        super.onResume();
+        cargarEventos(); // Recargar la lista de eventos
     }
 
     private void txtsearch(String str) {

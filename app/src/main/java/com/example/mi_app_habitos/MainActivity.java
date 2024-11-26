@@ -3,17 +3,22 @@ package com.example.mi_app_habitos;
 import static android.widget.Toast.LENGTH_SHORT;
 import static com.example.mi_app_habitos.R.id.nav_view;
 
+import android.app.DatePickerDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.SearchView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
@@ -28,7 +33,12 @@ import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
     FloatingActionButton floatingActionButton;
@@ -41,6 +51,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private EventoAdapter adapter;
     private List<Evento> eventos;
     private ApiService apiService;
+
+    String startDate;
+    String endDate;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -86,6 +99,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                     public void onResponse(retrofit2.Call<List<Evento>> call, retrofit2.Response<List<Evento>> response) {
                         if (response.isSuccessful() && response.body() != null) {
                             eventos.clear();
+
                             eventos.addAll(response.body());
                             adapter.notifyDataSetChanged();
                         }
@@ -124,6 +138,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 Toast.makeText(MainActivity.this, "Error de conexión", Toast.LENGTH_SHORT).show();
             }
         });
+
     }
 
 
@@ -153,7 +168,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             startActivity(new Intent(MainActivity.this, UserProfileActivity.class));
         } else if (id == R.id.nav_info) {
             Toast.makeText(this, "Estadísticas", LENGTH_SHORT).show();
-            startActivity(new Intent(MainActivity.this, EventoActivity.class));
+            startActivity(new Intent(MainActivity.this, Estadisticas.class));
         }
 
         drawerLayout.closeDrawer(GravityCompat.START);

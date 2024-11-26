@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/light_blue"
+    android:padding="0dp"> <!-- Sin padding en el ScrollView -->
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="0dp"
+        android:layout_margin="0dp"> <!-- Sin márgenes ni padding -->
+
+        <!-- Tarjeta -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:background="@drawable/card_background"
+            android:elevation="4dp"
+            android:layout_margin="0dp"
+            android:padding="0dp"> <!-- Sin margen ni padding -->
+
+            <!-- Texto del evento -->
+            <TextView
+                android:id="@+id/textNombreEvento"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Hacer ejercicio"
+                android:textColor="@android:color/black"
+                android:textSize="16sp"
+                android:padding="0dp"
+                android:layout_margin="0dp" /> <!-- Sin margen ni padding -->
+
+            <!-- Progreso circular -->
+            <FrameLayout
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_margin="0dp"> <!-- Sin margen -->
+
+                <ProgressBar
+                    android:id="@+id/progressBar"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:indeterminate="false"
+                    android:max="100"
+                    android:progress="70"
+                    style="@android:style/Widget.DeviceDefault.ProgressBar" />
+
+                <TextView
+                    android:id="@+id/progressText"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:text="40%"
+                    android:textSize="14sp"
+                    android:textStyle="bold"
+                    android:textColor="@android:color/black" />
+            </FrameLayout>
+
+        </LinearLayout>
+    </LinearLayout>
+</ScrollView>

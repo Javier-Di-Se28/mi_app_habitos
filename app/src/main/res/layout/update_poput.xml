@@ -1,6 +1,96 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-             android:layout_width="match_parent"
-             android:layout_height="match_parent">
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/white"
+    >
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:text="Editar"
+        android:background="@color/blue"
+        android:gravity="center"
+        android:textSize="40dp"
+        android:textColor="@color/colorIcon"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:textSize="20dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="5dp"
+        android:textColor="@color/colorIcon"
+        android:text="Nombre"/>
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:textColor="@color/black"
+        android:backgroundTint="#2196F3"
+        android:gravity="center"
+        android:id="@+id/editTextNombre"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:textSize="20dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="5dp"
+        android:textColor="@color/colorIcon"
+        android:text="Descripcion"/>
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:backgroundTint="#2196F3"
+        android:textColor="@color/black"
+        android:gravity="center"
+        android:id="@+id/editTextDescripcion"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:textSize="20dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="5dp"
+        android:textColor="@color/colorIcon"
+        android:text="Frecuencia"/>
+
+    <EditText
+        android:textColor="@color/black"
+        android:backgroundTint="#2196F3"
+        android:color="#2196F3"
+        android:id="@+id/editTextFrecuencia"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Selecciona frecuencia"
+        android:focusable="false"
+        android:clickable="true" />
+
+
+    <Button
+        android:id="@+id/button_start_date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Seleccionar Fecha de Inicio" />
+
+    <Button
+        android:id="@+id/button_end_date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Seleccionar Fecha de Fin"
+        android:inputType="date"
+        android:layout_marginTop="8dp" />
+
+
+
+</LinearLayout>

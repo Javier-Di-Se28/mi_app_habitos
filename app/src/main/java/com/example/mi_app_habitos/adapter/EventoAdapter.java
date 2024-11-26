@@ -34,6 +34,11 @@ public class EventoAdapter  extends RecyclerView.Adapter<EventoAdapter.EventoVie
     private List<Evento> eventos;
     private Context context;
     private ApiService apiService;
+    private List<String> lista;
+
+    public EventoAdapter(List<String> lista) {
+        this.lista = lista;
+    }
 
     public EventoAdapter(List<Evento> eventos, Context context, ApiService apiService) {
         this.eventos = eventos;
@@ -113,8 +118,8 @@ public class EventoAdapter  extends RecyclerView.Adapter<EventoAdapter.EventoVie
         }));
 
         // Configurar el EditText de frecuencia para que funcione como un botón
-        editTextFrecuencia.setFocusable(false);  // Evita que el usuario edite directamente
-        editTextFrecuencia.setClickable(true);  // Permite que el EditText sea clickeable
+        editTextFrecuencia.setFocusable(false);
+        editTextFrecuencia.setClickable(true);
 
         // Mostrar el PopupMenu cuando se haga clic en el EditText de frecuencia
 
@@ -150,11 +155,11 @@ public class EventoAdapter  extends RecyclerView.Adapter<EventoAdapter.EventoVie
                 evento.setNombre(nombre);
                 evento.setDescripcion(descripcion);
                 evento.setFrecuencia(frecuencia);
-                evento.setFecha_inicio(fechaInicio);  // Las fechas permanecen como String
-                evento.setFecha_final(fechaFinal);    // Las fechas permanecen como String
+                evento.setFecha_inicio(fechaInicio);
+                evento.setFecha_final(fechaFinal);
 
                 // Enviar los datos actualizados al servidor
-                updateEvento(evento, position);  // Actualiza el evento en la base de datos
+                updateEvento(evento, position);
             } else {
                 Toast.makeText(context, "Por favor completa todos los campos", Toast.LENGTH_SHORT).show();
             }
@@ -173,12 +178,15 @@ public class EventoAdapter  extends RecyclerView.Adapter<EventoAdapter.EventoVie
         int day = calendar.get(Calendar.DAY_OF_MONTH);
 
         DatePickerDialog datePickerDialog = new DatePickerDialog(context, (view, year1, month1, day1) -> {
-            String selectedDate = String.format("%02d/%02d/%04d", day1, month1 + 1, year1);
+            // Aquí cambiamos el formato a yyyy-MM-dd
+            String selectedDate = String.format("%04d-%02d-%02d", year1, month1 + 1, day1);
+            // Suponiendo que el método onDateSelected recibe la fecha en formato yyyy-MM-dd
             listener.onDateSelected(selectedDate);
         }, year, month, day);
 
         datePickerDialog.show();
     }
+
 
     // Interface para escuchar la selección de fecha
     private interface OnDateSelectedListener {

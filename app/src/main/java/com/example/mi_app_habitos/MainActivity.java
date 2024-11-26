@@ -49,11 +49,12 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     RecyclerView recyclerView;
     // API
     private EventoAdapter adapter;
-    private List<Evento> eventos;
     private ApiService apiService;
 
-    String startDate;
-    String endDate;
+    private List<Evento> eventos = new ArrayList<>();
+    private List<Evento> eventosFiltrados = new ArrayList<>();
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,10 +67,15 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         apiService = RetrofitClient.getClient().create(ApiService.class);
 
         eventos = new ArrayList<>();
-        adapter = new EventoAdapter(eventos,this,apiService);
+        eventosFiltrados = new ArrayList<>(); // Inicializar la lista de filtrados
         recyclerView.setAdapter(adapter);
 
         cargarEventos();
+
+        eventosFiltrados.addAll(eventos); // Copiar eventos originales a filtrados
+
+        adapter = new EventoAdapter(eventosFiltrados,this,apiService);
+        recyclerView.setAdapter(adapter);
 
         drawerLayout = findViewById(R.id.drawer_layout);
         navigationView = findViewById(nav_view);
@@ -99,8 +105,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                     public void onResponse(retrofit2.Call<List<Evento>> call, retrofit2.Response<List<Evento>> response) {
                         if (response.isSuccessful() && response.body() != null) {
                             eventos.clear();
+                            eventosFiltrados.clear();
 
                             eventos.addAll(response.body());
+                            eventosFiltrados.addAll(eventos); // Copia los eventos cargados a la lista filtrada
                             adapter.notifyDataSetChanged();
                         }
                     }
@@ -197,13 +205,40 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         return super.onCreateOptionsMenu(menu);
     }
+
+
+    private void txtsearch(String str) {
+        eventosFiltrados.clear();
+
+        if (str.isEmpty()) {
+            eventosFiltrados.addAll(eventos);
+        } else {
+            for (Evento evento : eventos) {
+
+                String query = str.toLowerCase();
+                String nombre = evento.getNombre().toLowerCase();
+                String descripcion = evento.getDescripcion().toLowerCase();
+                String frecuencia = evento.getFrecuencia().toLowerCase();
+                String fechaInicio = evento.getFecha_inicio().toLowerCase();
+                String fechaFin = evento.getFecha_final().toLowerCase();
+
+
+                if (nombre.contains(query) ||
+                        descripcion.contains(query) ||
+                        frecuencia.contains(query) ||
+                        fechaInicio.contains(query) ||
+                        fechaFin.contains(query)) {
+                    eventosFiltrados.add(evento);
+                }
+            }
+        }
+
+        adapter.notifyDataSetChanged(); // Actualiza el adaptador
+    }
+
     @Override
     protected void onResume() {
         super.onResume();
         cargarEventos(); // Recargar la lista de eventos
-    }
-
-    private void txtsearch(String str) {
-        // Handle search query
     }
 }

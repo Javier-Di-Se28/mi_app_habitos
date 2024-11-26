@@ -119,12 +119,14 @@ public class agregar extends AppCompatActivity {
         int day = calendar.get(Calendar.DAY_OF_MONTH);
 
         DatePickerDialog datePickerDialog = new DatePickerDialog(this, (view, year1, month1, day1) -> {
-            String selectedDate = String.format("%02d/%02d/%04d", day1, month1 + 1, year1);
-            listener.onDateSelected(selectedDate);
+            // Aquí cambiamos el formato a yyyy-MM-dd
+            String selectedDate = String.format("%04d-%02d-%02d", year1, month1 + 1, day1);
+            listener.onDateSelected(selectedDate);  // Pasamos la fecha en el formato correcto
         }, year, month, day);
 
         datePickerDialog.show();
     }
+
 
     private void updateDateRange(TextView textView) {
         if (!startDate.isEmpty() && !endDate.isEmpty()) {

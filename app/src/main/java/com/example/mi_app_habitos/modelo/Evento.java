@@ -2,7 +2,10 @@ package com.example.mi_app_habitos.modelo;
 
 import com.google.gson.annotations.SerializedName;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Locale;
 
 public class Evento {
 
@@ -73,5 +76,26 @@ public class Evento {
 
     public void setFecha_final(String fecha_final) {
         this.fecha_final = fecha_final;
+    }
+    // Método para convertir la fecha de inicio en un objeto Date
+    public Date getFechaInicioAsDate() {
+        try {
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
+            return sdf.parse(fecha_inicio);
+        } catch (ParseException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    // Método para convertir la fecha de fin en un objeto Date
+    public Date getFechaFinalAsDate() {
+        try {
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
+            return sdf.parse(fecha_final);
+        } catch (ParseException e) {
+            e.printStackTrace();
+            return null;
+        }
     }
 }

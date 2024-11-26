@@ -4,13 +4,18 @@ import android.os.Bundle;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.mi_app_habitos.adapter.ProgressAdapter;
 import com.example.mi_app_habitos.modelo.Evento;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -28,11 +33,11 @@ public class Estadisticas extends AppCompatActivity {
 
         // Configura RecyclerView
         recyclerView = findViewById(R.id.recyclerViewEventos);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
-
+        recyclerView.setLayoutManager(new GridLayoutManager(this, 1));
         // Llamar al método para cargar los datos desde la API
         cargarDatosDesdeApi();
     }
+
 
     private void cargarDatosDesdeApi() {
         ApiService apiService = RetrofitClient.getClient().create(ApiService.class);
@@ -45,6 +50,7 @@ public class Estadisticas extends AppCompatActivity {
                     List<Evento> eventos = response.body();
                     adapter = new ProgressAdapter(eventos);
                     recyclerView.setAdapter(adapter);
+                    Toast.makeText(Estadisticas.this, "Eventos cargados correctamente", Toast.LENGTH_SHORT).show();
                 } else {
                     Toast.makeText(Estadisticas.this, "No se pudieron cargar los eventos", Toast.LENGTH_SHORT).show();
                 }
